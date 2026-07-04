@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ulangan.id - Bank Soal Sekolah Dasar Premium</title>
+    <style>
+        /* --- DESIGN SYSTEM & COLORS --- */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #4f46e5, #7c3aed);
+            --bg-dark: #0f172a;
+            --bg-card: #1e1b4b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-blue: #38bdf8;
+            --accent-purple: #a855f7;
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* --- NAVBAR --- */
+        header {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition-smooth);
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-blue);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-blue);
+            transition: var(--transition-smooth);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            padding: 10rem 2rem 6rem 2rem;
+            text-align: center;
+            position: relative;
+            background: radial-gradient(circle at top, rgba(79, 70, 229, 0.15), transparent 60%);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .badge {
+            background: rgba(124, 58, 237, 0.2);
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            color: var(--accent-blue);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(to right, #60a5fa, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+        }
+
+        /* --- CONTAINER UTAMA --- */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            font-weight: 700;
+            position: relative;
+            padding-left: 1rem;
+            border-left: 4px solid var(--accent-blue);
+        }
+
+        /* --- FILTER GRID (KELAS & MAPEL) --- */
+        .filter-section {
+            margin-bottom: 5rem;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .grid-selection {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .card-select {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .card-select:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-purple);
+            box-shadow: 0 15px 35px rgba(124, 58, 237, 0.3);
+            background: linear-gradient(180deg, var(--bg-card), rgba(124, 58, 237, 0.1));
+        }
+
+        .card-select.active {
+            border-color: var(--accent-blue);
+            background: var(--primary-gradient);
+        }
+
+        .card-select h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-select p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* --- SOAL WRAPPER (Tempat Data Muncul) --- */
+        .quiz-section {
+            background: rgba(30, 27, 75, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            margin-bottom: 5rem;
+            min-height: 300px;
+        }
+
+        .loading-state {
+            text-align: center;
+            color: var(--text-muted);
+            font-style: italic;
+            padding: 4rem 0;
+            animation: float 2s ease-in-out infinite;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: #090d16;
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .nav-menu { display: none; } /* Untuk kesederhanaan awal template */
+            .grid-selection { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">ulangan.id</a>
+            <ul class="nav-menu">
+                <li><a href="#kelas" class="nav-link">Pilih Kelas</a></li>
+                <li><a href="#mapel" class="nav-link">Mata Pelajaran</a></li>
+                <li><a href="#soal" class="nav-link">Mulai Ujian</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="badge">E-Learning SD Masa Kini</span>
+            <h1>Belajar & Latihan Soal Jadi Lebih <span>Premium</span></h1>
+            <p>Akses ribuan bank soal tingkat Sekolah Dasar (SD) mulai dari kelas 1 sampai kelas 6 untuk seluruh mata pelajaran resmi secara gratis.</p>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-container">
+
+        <!-- PILIHAN KELAS -->
+        <section id="kelas" class="filter-section">
+            <h2 class="section-title">1. Pilih Kelas</h2>
+            <div class="grid-selection">
+                <div class="card-select" onclick="selectKelas(1, this)">
+                    <h3>Kelas 1</h3>
+                    <p>Fase A - Dasar</p>
+                </div>
+                <div class="card-select" onclick="selectKelas(2, this)">
+                    <h3>Kelas 2</h3>
+                    <p>Fase A - Lanjutan</p>
+                </div>
+                <div class="card-select" onclick="selectKelas(3, this)">
+                    <h3>Kelas 3</h3>
+                    <p>Fase B - Dasar</p>
+                </div>
+                <div class="card-select" onclick="selectKelas(4, this)">
+                    <h3>Kelas 4</h3>
+                    <p>Fase B - Lanjutan</p>
+                </div>
+                <div class="card-select" onclick="selectKelas(5, this)">
+                    <h3>Kelas 5</h3>
+                    <p>Fase C - Dasar</p>
+                </div>
+                <div class="card-select" onclick="selectKelas(6, this)">
+                    <h3>Kelas 6</h3>
+                    <p>Fase C - Ujian</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PILIHAN MATA PELAJARAN -->
+        <section id="mapel" class="filter-section">
+            <h2 class="section-title">2. Pilih Mata Pelajaran</h2>
+            <div class="grid-selection" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                <div class="card-select" onclick="selectMapel('MTK', this)">
+                    <h3>Matematika</h3>
+                    <p>Berhitung & Logika</p>
+                </div>
+                <div class="card-select" onclick="selectMapel('IPA', this)">
+                    <h3>Sains / IPA</h3>
+                    <p>Alam & Lingkungan</p>
+                </div>
+                <div class="card-select" onclick="selectMapel('IND', this)">
+                    <h3>Bahasa Indonesia</h3>
+                    <p>Literasi & Komunikasi</p>
+                </div>
+                <div class="card-select" onclick="selectMapel('PPKN', this)">
+                    <h3>PPKn</h3>
+                    <p>Karakter & Negara</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- AREA KONTEN SOAL -->
+        <section id="soal" class="quiz-section">
+            <h2 class="section-title">Bank Soal Terkini</h2>
+            <div id="quiz-container">
+                <div class="loading-state">
+                    Silakan pilih Kelas dan Mata Pelajaran di atas untuk menampilkan soal...
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 ulangan.id - Hak Cipta Dilindungi. Desain Premium E-Learning Indonesia.</p>
+    </footer>
+
+    <!-- JAVASCRIPT & SPREADSHEET INTEGRATION -->
+    <script>
+        // Variabel Penyimpan Filter
+        let selectedKelas = null;
+        let selectedMapel = null;
+
+        // --- GANTI ID SPREADSHEET-MU DI SINI ---
+        const SPREADSHEET_ID = 'MASUKKAN_ID_SPREADSHEET_KAMU_DISINI';
+        const API_KEY = 'MASUKKAN_API_KEY_GOOGLE_DISINI'; // Jika spreadsheet di-publish public, bisa pakai format CSV export tanpa API Key.
+
+        function selectKelas(kelas, element) {
+            // Hapus kelas aktif sebelumnya di section kelas
+            document.querySelectorAll('#kelas .card-select').forEach(card => card.classList.remove('active'));
+            element.classList.add('active');
+            selectedKelas = kelas;
+            checkAndFetchData();
+        }
+
+        function selectMapel(mapel, element) {
+            // Hapus kelas aktif sebelumnya di section mapel
+            document.querySelectorAll('#mapel .card-select').forEach(card => card.classList.remove('active'));
+            element.classList.add('active');
+            selectedMapel = mapel;
+            checkAndFetchData();
+        }
+
+        function checkAndFetchData() {
+            if (selectedKelas && selectedMapel) {
+                const container = document.getElementById('quiz-container');
+                container.innerHTML = `<div class="loading-state">Sedang mengambil soal dari database Spreadsheet untuk Kelas ${selectedKelas} - ${selectedMapel}...</div>`;
+                
+                // Panggil fungsi fetch data di sini nanti
+                console.log(`Mengambil data untuk Kelas: ${selectedKelas}, Mapel: ${selectedMapel}`);
+                
+                // Contoh integrasi URL Google Sheets (format JSON/CSV)
+                // const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json`;
+            }
+        }
+    </script>
+</body>
+</html>
